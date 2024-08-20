@@ -10,3 +10,5 @@ set -g theme_display_hostname no
 set -g theme_display_virtualenv yes
 set -g theme_display_node yes
 set -g theme_display_git yes
+set -g theme_display_date no
+set -g theme_title_display_user no
