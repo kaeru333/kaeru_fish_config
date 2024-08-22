@@ -5,6 +5,7 @@ end
 set -x $EDITOR nvim
 set -x INFORMIXDIR ~/Downloads
 set -x PATH /home/linuxbrew/.linuxbrew/bin $PATH
+set -x PATH /home/yoshimi/anaconda3/bin $PATH
 source /home/yoshimi/.config/fish/abbr/abbr.fish
 source /home/yoshimi/.config/fish/myconf.d/bobthefish.fish
 
