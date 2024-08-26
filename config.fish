@@ -9,7 +9,13 @@ set -x PATH /home/yoshimi/anaconda3/bin $PATH
 source /home/yoshimi/.config/fish/abbr/abbr.fish
 source /home/yoshimi/.config/fish/myconf.d/bobthefish.fish
 
+# keymap
 xkbcomp -I$HOME/.xkb ~/.xkb/keymap/mykbd $DISPLAY 2> /dev/null
+# scrol
+xinput set-prop 10 "libinput Scrolling Pixel Distance" 50
 
 # Created by `pipx` on 2024-08-18 10:07:10
 set PATH $PATH /home/yoshimi/.local/bin
+
+# >>> conda initialize >>>
+source (conda info --root)/etc/fish/conf.d/conda.fish
