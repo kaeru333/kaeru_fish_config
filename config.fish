@@ -16,8 +16,8 @@ set PATH $PATH /home/yoshimi/.local/bin
 # >>> conda initialize >>>
 source (conda info --root)/etc/fish/conf.d/conda.fish
 
-if status is-interactive
-and not set -q TMUX
-	exec tmux a
-    # Commands to run in interactive sessions can go here
-end
+# if status is-interactive
+# and not set -q TMUX
+# 	exec tmux
+#     # Commands to run in interactive sessions can go here
+# end
