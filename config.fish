@@ -16,8 +16,14 @@ set PATH $PATH /home/yoshimi/.local/bin
 # >>> conda initialize >>>
 source (conda info --root)/etc/fish/conf.d/conda.fish
 
-# if status is-interactive
-# and not set -q TMUX
-# 	exec tmux
-#     # Commands to run in interactive sessions can go here
-# end
+if status is-interactive
+    # 既存のセッションがなければ、新規作成
+    if tmux ls &> /dev/null
+        # 既存のセッションにアタッチ
+        tmux attach-session
+    else
+        # 新規セッションを作成し、tmux-resurrectでセッションを自動復元
+        tmux new-session \; run-shell /home/yoshimi/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh
+
+    end
+end
