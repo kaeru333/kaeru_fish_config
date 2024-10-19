@@ -16,6 +16,8 @@ set PATH $PATH /home/yoshimi/.local/bin
 # >>> conda initialize >>>
 source (conda info --root)/etc/fish/conf.d/conda.fish
 
+# nvm use v20.18.0
+
 if status is-interactive
     # 既存のセッションがなければ、新規作成
     if tmux ls &> /dev/null
