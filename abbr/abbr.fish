@@ -14,5 +14,5 @@ abbr -a pyt oj t -c '"python3 main.py" -d ./tests/'
 # abbr -a submit acc s main.py -- --guess-python-interpreter pypy
 abbr -a pc xsel --clipboard --input
 abbr -a pp xsel --clipboard --output
-abbr -a pwdy 'pwd | xsel --clipboard --input'
+abbr -a pwdy 'pwd | tr -d "\n" | xsel --clipboard --input'
 abbr -a vol pactl set-sink-volume @DEFAULT_SINK@
