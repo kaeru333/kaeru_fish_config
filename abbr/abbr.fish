@@ -12,6 +12,7 @@ abbr -a python python3
 abbr -a py python3
 abbr -a pyt oj t -c '"python3 main.py" -d ./tests/'
 # abbr -a submit acc s main.py -- --guess-python-interpreter pypy
+abbr -a trn tr -d "\n"
 abbr -a pc xsel --clipboard --input
 abbr -a pp xsel --clipboard --output
 abbr -a pwdy 'pwd | tr -d "\n" | xsel --clipboard --input'
