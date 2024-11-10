@@ -8,6 +8,7 @@ abbr -a tree eza -T
 abbr -a treed eza -T -D
 abbr -a cat bat
 abbr -a op xdg-open
+abbr -a top gotop
 abbr -a python python3
 abbr -a py python3
 abbr -a pyt oj t -c '"python3 main.py" -d ./tests/'
