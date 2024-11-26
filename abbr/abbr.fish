@@ -18,3 +18,8 @@ abbr -a pc xsel --clipboard --input
 abbr -a pp xsel --clipboard --output
 abbr -a pwdy 'pwd | tr -d "\n" | xsel --clipboard --input'
 abbr -a vol pactl set-sink-volume @DEFAULT_SINK@
+
+
+abbr -a C --position anywhere "| xsel --clipboard --input"
+abbr -a G --position anywhere "| grep"
+abbr -a Trn --position anywhere "| tr -d '\n'"
