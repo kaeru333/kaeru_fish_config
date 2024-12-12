@@ -42,3 +42,15 @@ end
 if test (node -v) != "v20.17.0"
     nvm use v20.17.0
 end
+
+function ya
+    set tmp (mktemp -t "yazi-cwd.XXXXX")
+    yazi --cwd-file="$tmp"
+    if test -f "$tmp"
+        set cwd (cat -- "$tmp")
+        if test -n "$cwd" -a "$cwd" != "$PWD"
+            cd -- "$cwd"
+        end
+    end
+    rm -f -- "$tmp"
+end
