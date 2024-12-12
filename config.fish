@@ -12,8 +12,6 @@ source /home/yoshimi/.config/fish/myconf.d/bobthefish.fish
 # Created by `pipx` on 2024-08-18 10:07:10
 set PATH $PATH /home/yoshimi/.local/bin
 
-# >>> conda initialize >>>
-source (conda info --root)/etc/fish/conf.d/conda.fish
 
 # nvm use v20.18.0
 
@@ -35,13 +33,12 @@ if status is-interactive
     else
         # 新規セッションを作成し、tmux-resurrectでセッションを自動復元
         tmux new-session \; run-shell /home/yoshimi/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh
-
     end
 end
 
-if test (node -v) != "v20.17.0"
-    nvm use v20.17.0
-end
+#if test (node -v) != "v20.17.0"
+#    nvm use v20.17.0
+#end
 
 function ya
     set tmp (mktemp -t "yazi-cwd.XXXXX")
@@ -54,3 +51,25 @@ function ya
     end
     rm -f -- "$tmp"
 end
+
+
+set -U FISH_CACHE_DIR "/home/yoshimi/.cache/fish"
+set -l CONFIG_CACHE "$FISH_CACHE_DIR"/config.fish
+
+if test "$FISH_CONFIG" -nt "$CONFIG_CACHE"
+    mkdir -p $FISH_CACHE_DIR
+    echo '' >$CONFIG_CACHE
+
+    # conda のキャッシュ追加
+    if type -q conda
+        set conda_root (conda info --root)
+        echo "source $conda_root/etc/fish/conf.d/conda.fish" >>$CONFIG_CACHE
+    end
+
+    # nvm のキャッシュ追加
+    type -q nvm; and echo "nvm use v20.17.0" >>$CONFIG_CACHE
+    
+    # starship init fish >>$CONFIG_CACHE
+    echo "config cache updated"
+end
+source $CONFIG_CACHE
