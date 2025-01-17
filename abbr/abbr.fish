@@ -22,6 +22,11 @@ abbr -a vol pactl set-sink-volume @DEFAULT_SINK@
 
 abbr -a earbuds "bluetoothctl connect \$EARBUDS_MAC"
 
+abbr -a "..." --position anywhere "../.."
+abbr -a "...." --position anywhere "../../.."
+abbr -a "....." --position anywhere "../../../.."
+abbr -a "......" --position anywhere "../../../../.."
+
 abbr -a C --position anywhere "| xsel --clipboard --input"
 abbr -a G --position anywhere "| grep"
 abbr -a Trn --position anywhere "| tr -d '\n'"
