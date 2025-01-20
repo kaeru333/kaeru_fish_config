@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export EDITOR:nvim
 SETUVAR FISH_CACHE_DIR:/home/yoshimi/\x2ecache/fish
 SETUVAR FZF_DEFAULT_OPTS:\x2d\x2dheight\x2040\x25
 SETUVAR FZF_DISABLE_KEYBINDINGS:0
@@ -8,6 +9,7 @@ SETUVAR FZF_PREVIEW_DIR_CMD:ls
 SETUVAR FZF_PREVIEW_FILE_CMD:head\x20\x2dn\x2010
 SETUVAR FZF_TMUX_HEIGHT:40\x25
 SETUVAR --export --path PATH:/home/yoshimi/go/bin\x1e/home/yoshimi/anaconda3/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/yoshimi/anaconda3/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/linuxbrew/\x2elinuxbrew/sbin\x1e/home/yoshimi/anaconda3/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/yoshimi/anaconda3/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/yoshimi/\x2edeno/bin\x1e/home/yoshimi/anaconda3/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/yoshimi/anaconda3/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/yoshimi/anaconda3/condabin\x1e/home/yoshimi/anaconda3/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/yoshimi/\x2ecargo/bin\x1e/home/yoshimi/\x2elocal/bin\x1e/usr/local/sbin\x1e/usr/local/bin\x1e/usr/sbin\x1e/usr/bin\x1e/sbin\x1e/bin\x1e/usr/games\x1e/usr/local/games\x1e/snap/bin\x1e/home/yoshimi/\x2elocal/bin\x1e/home/yoshimi/\x2elocal/bin\x1e/home/yoshimi/\x2elocal/bin\x1e/home/yoshimi/\x2elocal/bin\x1e/home/yoshimi/\x2elocal/bin\x1e/home/yoshimi/\x2elocal/bin
+SETUVAR --export VISUAL:nvim
 SETUVAR --export XMODIFIERS:\x40im\x3dfcitx
 SETUVAR ZO_CMD:zo
 SETUVAR Z_CMD:z

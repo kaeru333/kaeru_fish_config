@@ -1,4 +1,5 @@
-set -Ux $EDITOR nvim
+set -Ux EDITOR nvim
+set -Ux VISUAL nvim
 set -x INFORMIXDIR ~/Downloads
 set -x PATH /home/linuxbrew/.linuxbrew/bin $PATH
 set -x PATH /home/yoshimi/anaconda3/bin $PATH
