@@ -19,6 +19,7 @@ abbr -a pc xsel --clipboard --input
 abbr -a pp xsel --clipboard --output
 abbr -a pwdy 'pwd | tr -d "\n" | xsel --clipboard --input'
 abbr -a vol pactl set-sink-volume @DEFAULT_SINK@
+abbr -a mm nb edit
 
 abbr -a earbuds "bluetoothctl connect \$EARBUDS_MAC"
 

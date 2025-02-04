@@ -4,6 +4,9 @@ set -x INFORMIXDIR ~/Downloads
 set -x PATH /home/linuxbrew/.linuxbrew/bin $PATH
 set -x PATH /home/yoshimi/anaconda3/bin $PATH
 set -g PATH $HOME/go/bin $PATH
+set -x PATH /opt/f5/vpn $PATH
+set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
+
 source /home/yoshimi/.config/fish/abbr/abbr.fish
 source /home/yoshimi/.config/fish/myconf.d/bobthefish.fish
 
@@ -72,3 +75,10 @@ end
 source $CONFIG_CACHE
 
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/yoshimi/.ghcup/bin $PATH # ghcup-env
+
+
+set -x GTK_IM_MODULE fcitx
+set -x QT_IM_MODULE fcitx
+set -x XMODIFIERS "@im=fcitx"
+
+functions -q fish_postexec
