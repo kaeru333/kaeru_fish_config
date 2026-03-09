@@ -1,23 +1,41 @@
 set -Ux EDITOR nvim
 set -Ux VISUAL nvim
 set -x INFORMIXDIR ~/Downloads
-set -x PATH /home/linuxbrew/.linuxbrew/bin $PATH
-set -x PATH /home/yoshimi/anaconda3/bin $PATH
-set -g PATH $HOME/go/bin $PATH
-set -x PATH /opt/f5/vpn $PATH
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
-source /home/yoshimi/.config/fish/abbr/abbr.fish
-source /home/yoshimi/.config/fish/myconf.d/bobthefish.fish
+# OS判定
+set -g IS_MACOS (test (uname) = "Darwin"; and echo 1; or echo 0)
+set -g IS_LINUX (test (uname) = "Linux"; and echo 1; or echo 0)
 
-# イヤホンのMACアドレス
-set -x EARBUDS_MAC E8:EE:CC:AC:ED:08
+# Homebrew / Linuxbrew
+if test "$IS_MACOS" = 1
+    fish_add_path /opt/homebrew/bin
+else
+    fish_add_path /home/linuxbrew/.linuxbrew/bin
+end
 
-# scrol
-# xinput set-prop 10 "libinput Scrolling Pixel Distance" 70
+# 共通PATH
+fish_add_path $HOME/go/bin
+fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.cabal/bin
+fish_add_path $HOME/.ghcup/bin
 
-# Created by `pipx` on 2024-08-18 10:07:10
-set PATH $PATH /home/yoshimi/.local/bin
+source $HOME/.config/fish/abbr/abbr.fish
+source $HOME/.config/fish/myconf.d/bobthefish.fish
+
+# Linux専用設定
+if test "$IS_LINUX" = 1
+    fish_add_path /opt/f5/vpn
+    fish_add_path $HOME/anaconda3/bin
+
+    # イヤホンのMACアドレス
+    set -x EARBUDS_MAC E8:EE:CC:AC:ED:08
+
+    # IME (fcitx)
+    set -x GTK_IM_MODULE fcitx
+    set -x QT_IM_MODULE fcitx
+    set -x XMODIFIERS "@im=fcitx"
+end
 
 function fuck -d "Correct your previous console command"
     set -l fucked_up_command $history[1]
@@ -36,7 +54,12 @@ if status is-interactive
         tmux attach-session
     else
         # 新規セッションを作成し、tmux-resurrectでセッションを自動復元
-        tmux new-session \; run-shell /home/yoshimi/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh
+        set -l resurrect_script $HOME/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh
+        if test -f $resurrect_script
+            tmux new-session \; run-shell $resurrect_script
+        else
+            tmux new-session
+        end
     end
 end
 
@@ -52,8 +75,7 @@ function ya
     rm -f -- "$tmp"
 end
 
-
-set -U FISH_CACHE_DIR "/home/yoshimi/.cache/fish"
+set -U FISH_CACHE_DIR "$HOME/.cache/fish"
 set -l CONFIG_CACHE "$FISH_CACHE_DIR"/config.fish
 
 if test "$FISH_CONFIG" -nt "$CONFIG_CACHE"
@@ -66,19 +88,10 @@ if test "$FISH_CONFIG" -nt "$CONFIG_CACHE"
         echo "source $conda_root/etc/fish/conf.d/conda.fish" >>$CONFIG_CACHE
     end
 
-    # nvm のキャッシュ追加
-    #type -q nvm; and echo "nvm use v20.17.0" >>$CONFIG_CACHE
-    
-    # starship init fish >>$CONFIG_CACHE
     echo "config cache updated"
 end
 source $CONFIG_CACHE
 
-set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/yoshimi/.ghcup/bin $PATH # ghcup-env
-
-
-set -x GTK_IM_MODULE fcitx
-set -x QT_IM_MODULE fcitx
-set -x XMODIFIERS "@im=fcitx"
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
 
 functions -q fish_postexec
