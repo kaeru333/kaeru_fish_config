@@ -14,6 +14,11 @@ abbr -a pyt oj t -c '"python3 main.py" -d ./tests/'
 abbr -a trn tr -d "\n"
 abbr -a mm nb edit
 
+# claude code
+abbr -a cc "claude --dangerously-skip-permissions"
+abbr -a ccr "claude --dangerously-skip-permissions -r"
+abbr -a ca "claude -p"
+
 abbr -a "..." --position anywhere "../.."
 abbr -a "...." --position anywhere "../../.."
 abbr -a "....." --position anywhere "../../../.."
