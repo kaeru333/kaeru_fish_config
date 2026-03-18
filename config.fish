@@ -1,7 +1,11 @@
 set -Ux EDITOR nvim
 set -Ux VISUAL nvim
+set -Ux SUMO_HOME /home/yoshimi/SUMOLibraries
 set -x INFORMIXDIR ~/Downloads
+# 機密情報は secrets.fish に分離
+source $HOME/.config/fish/secrets.fish
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
+set -gx CONDA_CHANGEPS1 false
 
 # OS判定
 set -g IS_MACOS (test (uname) = "Darwin"; and echo 1; or echo 0)
@@ -13,6 +17,17 @@ if test "$IS_MACOS" = 1
 else
     fish_add_path /home/linuxbrew/.linuxbrew/bin
 end
+
+# AWSのprofile
+set -x AWS_PROFILE AWSAdministratorAccess-236747725155
+
+# BluetoothデバイスのMACアドレス
+set -x EAR E8:EE:CC:AC:ED:08
+set -x SPK F4:9D:8A:74:AA:77
+set -x KBD CA:D1:68:4A:CB:17
+# スマホのMACアドレス
+set -x SMARTPHONE_MAC 24:95:2f:47:69:65
+set -x SMARTPHONE_BLUETOOTH 24:95:2f:48:42:7b
 
 # 共通PATH
 fish_add_path $HOME/go/bin
@@ -27,9 +42,8 @@ source $HOME/.config/fish/myconf.d/bobthefish.fish
 if test "$IS_LINUX" = 1
     fish_add_path /opt/f5/vpn
     fish_add_path $HOME/anaconda3/bin
-
-    # イヤホンのMACアドレス
-    set -x EARBUDS_MAC E8:EE:CC:AC:ED:08
+    fish_add_path /usr/local/texlive/2025/bin/x86_64-linux
+    fish_add_path $HOME/.npm-global/bin
 
     # IME (fcitx)
     set -x GTK_IM_MODULE fcitx
@@ -37,15 +51,15 @@ if test "$IS_LINUX" = 1
     set -x XMODIFIERS "@im=fcitx"
 end
 
-function fuck -d "Correct your previous console command"
-    set -l fucked_up_command $history[1]
-    set -l unfucked_command (env TF_SHELL=fish TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command THEFUCK_ARGUMENT_PLACEHOLDER $argv)
-    if test "$unfucked_command" != ""
-        eval $unfucked_command
-        builtin history delete --exact --case-sensitive -- $fucked_up_command
-        builtin history merge
-    end
-end
+# function fuck -d "Correct your previous console command"
+#     set -l fucked_up_command $history[1]
+#     set -l unfucked_command (env TF_SHELL=fish TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command THEFUCK_ARGUMENT_PLACEHOLDER $argv)
+#     if test "$unfucked_command" != ""
+#         eval $unfucked_command
+#         builtin history delete --exact --case-sensitive -- $fucked_up_command
+#         builtin history merge
+#     end
+# end
 
 if status is-interactive
     # 既存のセッションがなければ、新規作成
@@ -63,17 +77,17 @@ if status is-interactive
     end
 end
 
-function ya
-    set tmp (mktemp -t "yazi-cwd.XXXXX")
-    yazi --cwd-file="$tmp"
-    if test -f "$tmp"
-        set cwd (cat -- "$tmp")
-        if test -n "$cwd" -a "$cwd" != "$PWD"
-            cd -- "$cwd"
-        end
-    end
-    rm -f -- "$tmp"
-end
+# function ya
+#     set tmp (mktemp -t "yazi-cwd.XXXXX")
+#     yazi --cwd-file="$tmp"
+#     if test -f "$tmp"
+#         set cwd (cat -- "$tmp")
+#         if test -n "$cwd" -a "$cwd" != "$PWD"
+#             cd -- "$cwd"
+#         end
+#     end
+#     rm -f -- "$tmp"
+# end
 
 set -U FISH_CACHE_DIR "$HOME/.cache/fish"
 set -l CONFIG_CACHE "$FISH_CACHE_DIR"/config.fish
@@ -95,3 +109,25 @@ source $CONFIG_CACHE
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME
 
 functions -q fish_postexec
+set -x LANG ja_JP.UTF-8
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /home/yoshimi/anaconda3/bin/conda
+    eval /home/yoshimi/anaconda3/bin/conda "shell.fish" "hook" $argv | source
+end
+# <<< conda initialize <<<
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+
+# Waylandディスプレイが未設定かつHyprlandが動いていたら、自動で設定
+if test -z "$WAYLAND_DISPLAY"
+    set -l display (ls /run/user/(id -u)/wayland-* 2>/dev/null | head -n 1 | xargs basename)
+    if test -n "$display"
+        set -gx WAYLAND_DISPLAY $display
+    end
+end
+direnv hook fish | source
