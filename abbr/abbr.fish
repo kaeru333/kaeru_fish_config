@@ -13,8 +13,12 @@ abbr -a py python3
 abbr -a pyt ~/.local/bin/oj t -c '"python3 main.py"' -d ./tests/
 abbr -a trn tr -d "\n"
 abbr -a screenshot 'grim -g "$(slurp)" ~/Pictures/screenshot/$(date +%s).png'
+
+# claude code
 abbr -a cc "claude --dangerously-skip-permissions"
+abbr -a ccr "claude --dangerously-skip-permissions -r"
 abbr -a ca "claude -p"
+
 abbr -a mcal "gcalcli --calendar='日程管理'"
 abbr -a mm nbs
 abbr -a ob "nvim /home/yoshimi/myfiles/ScienceTokyo/nakatalab/study/log/home.md"
