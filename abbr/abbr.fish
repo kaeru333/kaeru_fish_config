@@ -10,20 +10,40 @@ abbr -a cat bat
 abbr -a top gotop
 abbr -a python python3
 abbr -a py python3
-abbr -a pyt oj t -c '"python3 main.py" -d ./tests/'
+abbr -a pyt ~/.local/bin/oj t -c '"python3 main.py"' -d ./tests/
 abbr -a trn tr -d "\n"
-abbr -a mm nb edit
+abbr -a screenshot 'grim -g "$(slurp)" ~/Pictures/screenshot/$(date +%s).png'
 
 # claude code
 abbr -a cc "claude --dangerously-skip-permissions"
 abbr -a ccr "claude --dangerously-skip-permissions -r"
 abbr -a ca "claude -p"
 
+abbr -a mcal "gcalcli --calendar='日程管理'"
+abbr -a mm nbs
+abbr -a ob "nvim /home/yoshimi/myfiles/ScienceTokyo/nakatalab/study/log/home.md"
+abbr -a ja "node /home/yoshimi/myfiles/something/gemini_cli/gemini.js "
+
 abbr -a "..." --position anywhere "../.."
 abbr -a "...." --position anywhere "../../.."
 abbr -a "....." --position anywhere "../../../.."
 abbr -a "......" --position anywhere "../../../../.."
 abbr -a G --position anywhere "| grep"
+abbr -a F --position anywhere "| fzf"
+abbr -a Trn --position anywhere "| tr -d '\n'"
+abbr -a R --position anywhere "| lolcat"
+abbr -a D --position anywhere "&& dunstify"
+abbr -a St --position anywhere "--sort=time"
+
+# Bluetooth デバイス
+abbr -a --position anywhere -- btc "bluetoothctl connect"
+abbr -a ear "bluetoothctl connect \$EAR"
+abbr -a spk "bluetoothctl connect \$SPK"
+abbr -a kbd "bluetoothctl connect \$KBD"
+
+# TSUBAME
+abbr -a --position anywhere -- TSUBAME "scp://us04759@r4n11.titech.ac.jp/gs/bs/tga-nakatalab/home"
+abbr -a --position anywhere -- DAC25 "scp://tsubame//gs/bs/tga-nakatalab/home/dac25_nakata"
 
 # OS別abbr
 if test (uname) = "Darwin"
@@ -33,15 +53,12 @@ if test (uname) = "Darwin"
     abbr -a pp pbpaste
     abbr -a pwdy 'pwd | tr -d "\n" | pbcopy'
     abbr -a C --position anywhere "| pbcopy"
-    abbr -a Trn --position anywhere "| tr -d '\n'"
 else
     abbr -a shut shutdown now
     abbr -a op xdg-open
-    abbr -a pc xsel --clipboard --input
-    abbr -a pp xsel --clipboard --output
-    abbr -a pwdy 'pwd | tr -d "\n" | xsel --clipboard --input'
+    abbr -a pc wl-copy
+    abbr -a pp wl-paste
+    abbr -a pwdy 'pwd | tr -d "\n" | wl-copy'
     abbr -a vol pactl set-sink-volume @DEFAULT_SINK@
-    abbr -a earbuds "bluetoothctl connect \$EARBUDS_MAC"
-    abbr -a C --position anywhere "| xsel --clipboard --input"
-    abbr -a Trn --position anywhere "| tr -d '\n'"
+    abbr -a C --position anywhere "| wl-copy"
 end
